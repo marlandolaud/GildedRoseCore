@@ -22,7 +22,7 @@ namespace GildedRose.UI.Home
 
             if (Name.Equals("Aged Brie"))
             {
-                updateQualityStratergy = new AgedBrieUpdateQualityStratergy();
+                updateQualityStratergy = new BetterWithTimeUpdateQualityStratergy();
             }
         }
 
@@ -109,11 +109,10 @@ namespace GildedRose.UI.Home
                 }
                 else
                 {
-                    updateQualityStratergy.UpdateQuality(this);
-                    //if (this.Quality < 50)
-                    //{
-                    //    this.Quality = this.Quality + 1;
-                    //}
+                    if (this.Quality < 50)
+                    {
+                        this.Quality = this.Quality + 1;
+                    }
                 }
             }
         }

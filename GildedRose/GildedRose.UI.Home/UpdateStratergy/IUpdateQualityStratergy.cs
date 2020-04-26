@@ -2,6 +2,6 @@
 {
     public interface IUpdateQualityStratergy
     {
-        void UpdateQuality(StoreItem storeItem);
+        void UpdateQuality(StoreItem item);
     }
 }

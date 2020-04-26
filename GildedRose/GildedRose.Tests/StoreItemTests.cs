@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GildedRose.Tests.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,7 @@ namespace GildedRose.Tests
 {
     public partial class StoreItemTests
     {
-        private const int MaxQuality = 50;
-
-        private const int DefaultQualityValue = 20;
+        
 
         [Fact]
         public void ReduceNormalItemQualityByOne()
@@ -85,7 +84,7 @@ namespace GildedRose.Tests
         public void ShouldNotIncreseQualityOfAgedBriePast50()
         {
             // Arrange            
-            var storeItem = StoreItemHelper.GetAgedBrie(quality: MaxQuality);
+            var storeItem = StoreItemHelper.GetAgedBrie(quality: GildedRoseTestConstants.MaxQuality);
             int expectedQuality = storeItem.Quality;
 
             // Act
@@ -139,14 +138,14 @@ namespace GildedRose.Tests
         }
 
         [Theory]
-        [InlineData(30, DefaultQualityValue, DefaultQualityValue + 1)]
-        [InlineData(20, DefaultQualityValue, DefaultQualityValue + 1)]
-        [InlineData(10, DefaultQualityValue, DefaultQualityValue + 2)]
-        [InlineData(9, DefaultQualityValue, DefaultQualityValue + 2)]
-        [InlineData(5, DefaultQualityValue, DefaultQualityValue + 3)]
-        [InlineData(4, DefaultQualityValue, DefaultQualityValue + 3)]
-        [InlineData(0, DefaultQualityValue, 0)]
-        [InlineData(-1, DefaultQualityValue, 0)]
+        [InlineData(30, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 1)]
+        [InlineData(20, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 1)]
+        [InlineData(10, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 2)]
+        [InlineData(9, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 2)]
+        [InlineData(4, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 3)]
+        [InlineData(5, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 3)]
+        [InlineData(0, GildedRoseTestConstants.DefaultQualityValue, 0)]
+        [InlineData(-1, GildedRoseTestConstants.DefaultQualityValue, 0)]
         public void BackStagePassesQualityShouldIncreaseUntilTheConcertIsOver(int sellin, int initialQuality, int expectedQuality)
         {
             // Arrange            
