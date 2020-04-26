@@ -11,8 +11,11 @@ namespace GildedRose.Tests.Services
     public class ItemQualityServiceTests
     {
         private const int MaxQuality = 50;
+
         private const int DefaultSellinValue = 10;
+
         private const int DefaultQualityValue = 20;
+
         public ItemQualityService qualityiService;
 
         public ItemQualityServiceTests()
@@ -117,10 +120,41 @@ namespace GildedRose.Tests.Services
             agedBrieItem.Quality.Should().Be(expactedValue);
         }
 
+        [Fact]
+        public void SulfurasQualityShouldNotChange()
+        {
+            // Arrange            
+            Item normalItem = GetSulfuras();
+            int expectedQuality = normalItem.Quality;
+
+            // Act
+            qualityiService.UpdateItemQuality(normalItem);
+
+            // Assert
+            normalItem.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void SulfurasSellInShouldNotChange()
+        {
+            // Arrange            
+            Item normalItem = GetSulfuras();
+            int expectedSellIn = normalItem.SellIn;
+
+            // Act
+            qualityiService.UpdateItemQuality(normalItem);
+
+            // Assert
+            normalItem.SellIn.Should().Be(expectedSellIn);
+        }
+
         private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
             new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
 
         private static Item GetAgedBrie(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
             new Item { Name = "Aged Brie", SellIn = sellin, Quality = quality };
+
+        private static Item GetSulfuras() =>
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = DefaultSellinValue, Quality = DefaultQualityValue };
     }
 }
