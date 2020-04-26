@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using GildedRose.UI.Home;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,19 +6,17 @@ using Xunit;
 
 namespace GildedRose.Tests
 {
-    public class StoreItemTests
+    public partial class StoreItemTests
     {
         private const int MaxQuality = 50;
 
-        private const int DefaultSellinValue = 10;
-
-        private const int DefaultQualityValue = 20;      
+        private const int DefaultQualityValue = 20;
 
         [Fact]
         public void ReduceNormalItemQualityByOne()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetNormalItem());
+            var storeItem = StoreItemHelper.GetNormalItem();
             int expectedQuality = storeItem.Quality - 1;
 
             // Act
@@ -33,21 +30,21 @@ namespace GildedRose.Tests
         public void ReduceNormalItemSellInByOne()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetNormalItem());
+            var storeItem = StoreItemHelper.GetNormalItem();
             int expectedSellIn = storeItem.SellIn - 1;
 
             // Act
             storeItem.UpdateQuality();
 
             // Assert
-            storeItem.SellIn.Should().Be(expectedSellIn);       
+            storeItem.SellIn.Should().Be(expectedSellIn);
         }
 
         [Fact]
         public void ReduceNormalItemQualityByTwoWhenSellInLessThanOne()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetNormalItem(sellin: 0));
+            var storeItem = StoreItemHelper.GetNormalItem(sellin: 0);
             int expectedQuality = storeItem.Quality - 2;
 
             // Act
@@ -61,7 +58,7 @@ namespace GildedRose.Tests
         public void QualityShouldNeverBeNegative()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetNormalItem(quality: 0));
+            var storeItem = StoreItemHelper.GetNormalItem(quality: 0);
 
             // Act
             storeItem.UpdateQuality();
@@ -74,7 +71,7 @@ namespace GildedRose.Tests
         public void AigedBrieQualityShouldIncrease()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetAgedBrie());
+            var storeItem = StoreItemHelper.GetAgedBrie();
             int expectedQuality = storeItem.Quality + 1;
 
             // Act
@@ -88,7 +85,7 @@ namespace GildedRose.Tests
         public void ShouldNotIncreseQualityOfAgedBriePast50()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetAgedBrie(quality: MaxQuality));
+            var storeItem = StoreItemHelper.GetAgedBrie(quality: MaxQuality);
             int expectedQuality = storeItem.Quality;
 
             // Act
@@ -103,7 +100,7 @@ namespace GildedRose.Tests
         {
 
             // Arrange            
-            var storeItem = new StoreItem(GetAgedBrie(sellin: 0));
+            var storeItem = StoreItemHelper.GetAgedBrie(sellin: 0);
             int expectedQuality = storeItem.Quality + 2;
 
             // Act
@@ -117,7 +114,7 @@ namespace GildedRose.Tests
         public void SulfurasQualityShouldNotChange()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetSulfuras());
+            var storeItem = StoreItemHelper.GetSulfuras();
             int expectedQuality = storeItem.Quality;
 
             // Act
@@ -131,7 +128,7 @@ namespace GildedRose.Tests
         public void SulfurasSellInShouldNotChange()
         {
             // Arrange            
-            var storeItem = new StoreItem(GetSulfuras());
+            var storeItem = StoreItemHelper.GetSulfuras();
             int expectedSellIn = storeItem.SellIn;
 
             // Act
@@ -153,7 +150,7 @@ namespace GildedRose.Tests
         public void BackStagePassesQualityShouldIncreaseUntilTheConcertIsOver(int sellin, int initialQuality, int expectedQuality)
         {
             // Arrange            
-            var storeItem = new StoreItem(GetBackstage(sellin: sellin, quality: initialQuality));
+            var storeItem = StoreItemHelper.GetBackstage(sellin: sellin, quality: initialQuality);
 
             // Act
             storeItem.UpdateQuality();
@@ -161,17 +158,5 @@ namespace GildedRose.Tests
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
         }
-
-        private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
-            new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
-
-        private static Item GetAgedBrie(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
-            new Item { Name = "Aged Brie", SellIn = sellin, Quality = quality };
-
-        private static Item GetSulfuras() =>
-            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = DefaultSellinValue, Quality = DefaultQualityValue };
-
-        private static Item GetBackstage(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
-            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellin, Quality = quality };
     }
 }
