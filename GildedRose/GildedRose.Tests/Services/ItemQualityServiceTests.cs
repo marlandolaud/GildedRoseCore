@@ -64,13 +64,12 @@ namespace GildedRose.Tests.Services
         {
             // Arrange            
             Item normalItem = GetNormalItem(quality: 0);
-            int expectedQuality = normalItem.Quality;
 
             // Act
             qualityiService.UpdateItemQuality(normalItem);
 
             // Assert
-            normalItem.Quality.Should().Be(expectedQuality);
+            normalItem.Quality.Should().Be(0);
         }
 
         private static Item GetNormalItem(int sellin = 10, int quality = 20)
