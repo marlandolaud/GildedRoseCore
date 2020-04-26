@@ -148,82 +148,19 @@ namespace GildedRose.Tests.Services
             normalItem.SellIn.Should().Be(expectedSellIn);
         }
 
-        [Fact]
-        public void BackStagePassesIncreasesInQuality()
+        [Theory]
+        [InlineData(30, DefaultQualityValue, DefaultQualityValue + 1)]
+        [InlineData(20, DefaultQualityValue, DefaultQualityValue + 1)]
+        [InlineData(10, DefaultQualityValue, DefaultQualityValue + 2)]
+        [InlineData(9, DefaultQualityValue, DefaultQualityValue + 2)]
+        [InlineData(5, DefaultQualityValue, DefaultQualityValue + 3)]
+        [InlineData(4, DefaultQualityValue, DefaultQualityValue + 3)]
+        [InlineData(0, DefaultQualityValue, 0)]
+        [InlineData(-1, DefaultQualityValue, 0)]
+        public void BackStagePassesQualityShouldIncreaseUntilTheConcertIsOver(int sellin, int initialQuality, int expectedQuality)
         {
             // Arrange    
-            Item backstagepass = GetBackstage(sellin: 30);
-            int expectedQuality = backstagepass.Quality + 1;
-
-            // Act
-            qualityiService.UpdateItemQuality(backstagepass);
-
-            // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
-        }
-
-        [Fact]
-        public void BackStagePassesIncreasesInQualityBy2When10Days()
-        {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: 10);
-            int expectedQuality = backstagepass.Quality + 2;
-
-            // Act
-            qualityiService.UpdateItemQuality(backstagepass);
-
-            // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
-        }
-
-        [Fact]
-        public void BackStagePassesIncreasesInQualityBy2When10DaysOrLess()
-        {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: 9);
-            int expectedQuality = backstagepass.Quality + 2;
-
-            // Act
-            qualityiService.UpdateItemQuality(backstagepass);
-
-            // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
-        }
-
-        [Fact]
-        public void BackStagePassesIncreasesInQualityBy3When5Days()
-        {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: 5);
-            int expectedQuality = backstagepass.Quality + 3;
-
-            // Act
-            qualityiService.UpdateItemQuality(backstagepass);
-
-            // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
-        }
-
-        [Fact]
-        public void BackStagePassesIncreasesInQualityBy3When5DaysOrLess()
-        {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: 4);
-            int expectedQuality = backstagepass.Quality + 3;
-
-            // Act
-            qualityiService.UpdateItemQuality(backstagepass);
-
-            // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
-        }
-
-        [Fact]
-        public void BackStagePassesDropToZeroAfterTheConcert()
-        {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: -1);
-            int expectedQuality = 0;
+            Item backstagepass = GetBackstage(sellin: sellin, quality: initialQuality);
 
             // Act
             qualityiService.UpdateItemQuality(backstagepass);
