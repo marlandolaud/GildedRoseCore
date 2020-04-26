@@ -10,32 +10,44 @@ namespace GildedRose.Tests.Services
 {
     public class ItemQualityServiceTests
     {
+        public ItemQualityService qualityiService;
+
+        public ItemQualityServiceTests()
+        {
+            qualityiService = new ItemQualityService();
+        }
+
         [Fact]
         public void ReduceNormalItemQualityByOne()
         {
-            // Arrange
-            var qualityiService = new ItemQualityService();
-            var normalItem = new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
+            // Arrange            
+            Item normalItem = GetNormalItem();
+            int expectedQuality = normalItem.Quality -1;
 
             // Act
             qualityiService.UpdateItemQuality(normalItem);
 
             // Assert
-            normalItem.Quality.Should().Be(19);
+            normalItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void ReduceNormalItemSellInByOne()
         {
             // Arrange
-            var qualityiService = new ItemQualityService();
-            var normalItem = new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
+            var normalItem = GetNormalItem();
+            int expectedSellin = normalItem.SellIn - 1;
 
             // Act
             qualityiService.UpdateItemQuality(normalItem);
 
             // Assert
-            normalItem.SellIn.Should().Be(9);
+            normalItem.SellIn.Should().Be(expectedSellin);
+        }
+
+        private static Item GetNormalItem()
+        {
+            return new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
         }
     }
 }
