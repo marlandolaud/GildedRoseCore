@@ -148,6 +148,90 @@ namespace GildedRose.Tests.Services
             normalItem.SellIn.Should().Be(expectedSellIn);
         }
 
+        [Fact]
+        public void BackStagePassesIncreasesInQuality()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: 30);
+            int expectedQuality = backstagepass.Quality + 1;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void BackStagePassesIncreasesInQualityBy2When10Days()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: 10);
+            int expectedQuality = backstagepass.Quality + 2;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void BackStagePassesIncreasesInQualityBy2When10DaysOrLess()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: 9);
+            int expectedQuality = backstagepass.Quality + 2;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void BackStagePassesIncreasesInQualityBy3When5Days()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: 5);
+            int expectedQuality = backstagepass.Quality + 3;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void BackStagePassesIncreasesInQualityBy3When5DaysOrLess()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: 4);
+            int expectedQuality = backstagepass.Quality + 3;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void BackStagePassesDropToZeroAfterTheConcert()
+        {
+            // Arrange    
+            Item backstagepass = GetBackstage(sellin: -1);
+            int expectedQuality = 0;
+
+            // Act
+            qualityiService.UpdateItemQuality(backstagepass);
+
+            // Assert
+            backstagepass.Quality.Should().Be(expectedQuality);
+        }
+
         private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
             new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
 
@@ -156,5 +240,8 @@ namespace GildedRose.Tests.Services
 
         private static Item GetSulfuras() =>
             new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = DefaultSellinValue, Quality = DefaultQualityValue };
+
+        private static Item GetBackstage(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = sellin, Quality = quality };
     }
 }
