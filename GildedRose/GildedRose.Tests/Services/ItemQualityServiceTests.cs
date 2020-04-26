@@ -72,9 +72,24 @@ namespace GildedRose.Tests.Services
             normalItem.Quality.Should().Be(0);
         }
 
-        private static Item GetNormalItem(int sellin = 10, int quality = 20)
+        [Fact]
+        public void AigedBrieQualityShouldIncrease()
         {
-            return new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
+            // Arrange            
+            Item agedBrieItem = GetAgedBrie();
+            int expactedValue = agedBrieItem.Quality + 1;
+
+            // Act
+            qualityiService.UpdateItemQuality(agedBrieItem);
+
+            // Assert
+            agedBrieItem.Quality.Should().Be(expactedValue);
         }
+
+        private static Item GetNormalItem(int sellin = 10, int quality = 20) => 
+            new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
+
+        private static Item GetAgedBrie(int sellin = 2, int quality = 0) => 
+            new Item { Name = "Aged Brie", SellIn = sellin, Quality = quality };
     }
 }
