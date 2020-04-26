@@ -1,10 +1,11 @@
 ﻿using GildedRose.UI.Home;
+using System;
 
 namespace GildedRose.Tests.Helpers
 {
     public static class StoreItemHelper
     {
-        public static StoreItem GetNormalItem(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
+        internal static StoreItem GetNormalItem(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
             new StoreItem(new Item 
             { 
                 Name = "+5 Dexterity Vest", 
@@ -12,7 +13,7 @@ namespace GildedRose.Tests.Helpers
                 Quality = quality 
             });
 
-        public static StoreItem GetAgedBrie(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
+        internal static StoreItem GetAgedBrie(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
             new StoreItem(
                 new Item 
                 { 
@@ -21,7 +22,16 @@ namespace GildedRose.Tests.Helpers
                     Quality = quality 
                 });
 
-        public static StoreItem GetSulfuras() =>
+        internal static StoreItem GetConjuredItem(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
+            new StoreItem(
+                new Item
+                {
+                    Name = "Conjured",
+                    SellIn = sellin,
+                    Quality = quality
+                });
+
+        internal static StoreItem GetSulfuras() =>
             new StoreItem(
                 new Item 
                 { 
@@ -30,7 +40,7 @@ namespace GildedRose.Tests.Helpers
                     Quality = GildedRoseTestConstants.DefaultQualityValue 
                 });
 
-        public static StoreItem GetBackstage(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
+        internal static StoreItem GetBackstage(int sellin = GildedRoseTestConstants.DefaultSellinValue, int quality = GildedRoseTestConstants.DefaultQualityValue) =>
             new StoreItem(
                 new Item 
                 { 
