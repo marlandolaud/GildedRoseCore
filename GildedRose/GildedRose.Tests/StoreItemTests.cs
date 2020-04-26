@@ -9,7 +9,6 @@ namespace GildedRose.Tests
 {
     public partial class StoreItemTests
     {
-        
 
         [Fact]
         public void ReduceNormalItemQualityByOne()
