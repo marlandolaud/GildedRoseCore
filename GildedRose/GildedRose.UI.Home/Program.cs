@@ -24,12 +24,11 @@ namespace GildedRose.UI.Home
                 new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
             };
 
-            var app = new ItemQualityService();
+            var service = new ItemQualityService();
 
-            app.UpdateQuality(Items);
+            service.UpdateQuality(Items);
 
             System.Console.ReadKey();
-
         }
     }
 }
