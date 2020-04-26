@@ -20,9 +20,18 @@ namespace GildedRose.UI.Home
         {
             this.item = item;
 
+            updateQualityStratergy = new DefaultStratergy();
             if (Name.Equals("Aged Brie"))
             {
                 updateQualityStratergy = new BetterWithTimeUpdateQualityStratergy();
+            }
+            if (Name.Equals("Sulfuras, Hand of Ragnaros"))
+            {
+                updateQualityStratergy = new SulfurasUpdateQualityStratergy();
+            }
+            if (Name.Equals("Backstage passes to a TAFKAL80ETC concert"))
+            {
+                updateQualityStratergy = new BackStagePassUpdateQualityStratergy();
             }
         }
 
@@ -46,6 +55,9 @@ namespace GildedRose.UI.Home
 
         public void UpdateQuality()
         {
+            updateQualityStratergy.UpdateQuality(this);
+            return;
+
             if (this.Name != "Aged Brie" && this.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (this.Quality > 0)
