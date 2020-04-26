@@ -59,6 +59,20 @@ namespace GildedRose.Tests.Services
             normalItem.Quality.Should().Be(expectedQuality);
         }
 
+        [Fact]
+        public void QualityShouldNeverBeNegative()
+        {
+            // Arrange            
+            Item normalItem = GetNormalItem(quality: 0);
+            int expectedQuality = normalItem.Quality;
+
+            // Act
+            qualityiService.UpdateItemQuality(normalItem);
+
+            // Assert
+            normalItem.Quality.Should().Be(expectedQuality);
+        }
+
         private static Item GetNormalItem(int sellin = 10, int quality = 20)
         {
             return new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
