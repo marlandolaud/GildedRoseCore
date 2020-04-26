@@ -12,18 +12,18 @@
         public void UpdateQuality(StoreItem item)
         {
             item.SellIn--;
-            item.Quality++;
+            item.IncrementQuality();            
             if (item.SellIn < 10)
             {
-                item.Quality++;
-            }
+                item.IncrementQuality();
+            }            
             if (item.SellIn < 5)
             {
-                item.Quality++;
+                item.IncrementQuality();
             }
             if (item.SellIn < 0)
             {
-                item.Quality = 0;
+                item.Expire();
             }
         }
     }

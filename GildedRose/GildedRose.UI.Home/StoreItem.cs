@@ -1,7 +1,4 @@
 ﻿using GildedRose.UI.Home.UpdateStratergy;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GildedRose.UI.Home
 {
@@ -49,18 +46,33 @@ namespace GildedRose.UI.Home
         public int Quality
         {
             get { return item.Quality; }
-            set 
-            {
-                if ((value >= 0) && (value <= 50))
-                {
-                    item.Quality = value;
-                }
-            }
+            private set { item.Quality = value; }
         }
 
         public void UpdateQuality()
         {
             updateQualityStratergy.UpdateQuality(this);
+        }
+
+        public void IncrementQuality()
+        {
+            if (Quality < 50)
+            {
+                Quality++;
+            }
+        }
+
+        public void DecrementQuality()
+        {
+            if (Quality > 0)
+            {
+                Quality--;
+            }
+        }
+
+        public void Expire()
+        {
+            Quality = 0;
         }
     }
 }

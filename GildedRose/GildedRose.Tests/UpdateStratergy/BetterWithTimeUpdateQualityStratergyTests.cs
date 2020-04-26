@@ -45,10 +45,23 @@ namespace GildedRose.Tests.UpdateStratergy
         [Fact]
         public void ShouldIncreaseQualityOfAgedBrieBy2AfterSellin()
         {
-
             // Arrange            
             var storeItem = StoreItemHelper.GetAgedBrie(sellin: 0);
             int expectedQuality = storeItem.Quality + 2;
+
+            // Act
+            updateQualityStratergy.UpdateQuality(storeItem);
+
+            // Assert
+            storeItem.Quality.Should().Be(expectedQuality);
+        }
+
+        [Fact]
+        public void ShouldIncreaseQualityOfAgedBrieBy2AfterSellinEdgeCase()
+        {
+            // Arrange            
+            var storeItem = StoreItemHelper.GetAgedBrie(sellin: 1);
+            int expectedQuality = storeItem.Quality + 1;
 
             // Act
             updateQualityStratergy.UpdateQuality(storeItem);

@@ -21,6 +21,7 @@ namespace GildedRose.Tests.UpdateStratergy
         [InlineData(9, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 2)]
         [InlineData(4, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 3)]
         [InlineData(5, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 3)]
+        [InlineData(1, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 3)]
         [InlineData(0, GildedRoseTestConstants.DefaultQualityValue, 0)]
         [InlineData(-1, GildedRoseTestConstants.DefaultQualityValue, 0)]
         public void BackStagePassesQualityShouldIncreaseUntilTheConcertIsOver(int sellin, int initialQuality, int expectedQuality)

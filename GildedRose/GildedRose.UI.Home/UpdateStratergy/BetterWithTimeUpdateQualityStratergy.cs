@@ -2,22 +2,22 @@
 {
     public class BetterWithTimeUpdateQualityStratergy : IUpdateQualityStratergy
     {
+        /// <summary>
+        /// "Aged Brie" actually increases in Quality the older it gets
+        /// </summary>
+        /// <param name="storeItem"></param>
         public void UpdateQuality(StoreItem storeItem)
         {
             if (storeItem.SellIn > 0)
             {
-                storeItem.Quality += 1;
+                storeItem.IncrementQuality();
             }
             else
             {
-                storeItem.Quality += 2;
+                storeItem.IncrementQuality();
+                storeItem.IncrementQuality();
             }
-            storeItem.SellIn -= 1;
-
-            if (storeItem.SellIn < 0)
-            {
-                storeItem.SellIn++;
-            }
+            storeItem.SellIn--;
         }
     }
 }

@@ -2,16 +2,19 @@
 {
     public class ConjuredUpdateQualityStratergy : IUpdateQualityStratergy
     {
+        /// <summary>
+        /// "Conjured" items degrade in Quality twice as fast as normal items
+        /// </summary>
+        /// <param name="item"></param>
         public void UpdateQuality(StoreItem item)
         {
-            item.SellIn--;            
-            if (item.SellIn > 0)
+            item.SellIn--;
+            item.DecrementQuality();
+            item.DecrementQuality();
+            if (item.SellIn < 0)
             {
-                item.Quality -= 2;
-            }
-            else
-            {
-                item.Quality -= 4;
+                item.DecrementQuality();
+                item.DecrementQuality();
             }
         }
     }

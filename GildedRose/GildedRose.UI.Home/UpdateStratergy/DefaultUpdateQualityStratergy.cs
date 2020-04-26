@@ -2,19 +2,18 @@
 {
     public class DefaultUpdateQualityStratergy : IUpdateQualityStratergy
     {
+        /// <summary>
+        /// Once the sell by date has passed, Quality degrades twice as fast
+        /// </summary>
+        /// <param name="item"></param>
         public void UpdateQuality(StoreItem item)
         {
-            if (item.SellIn > 0)
+            item.SellIn--;
+            item.DecrementQuality();
+            if (item.SellIn < 0)
             {
-                item.Quality--;
-            }
-            else
-            {
-                item.Quality -= 2;
-            }
-            if (item.SellIn > 0)
-            {
-                item.SellIn--;
+                item.DecrementQuality();
+
             }
         }
     }
