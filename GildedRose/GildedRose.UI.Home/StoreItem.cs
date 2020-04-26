@@ -38,7 +38,6 @@ namespace GildedRose.UI.Home
         public string Name
         {
             get { return item.Name; }
-            set { item.Name = value; }
         }
 
         public int SellIn
@@ -50,7 +49,13 @@ namespace GildedRose.UI.Home
         public int Quality
         {
             get { return item.Quality; }
-            set { item.Quality = value; }
+            set 
+            {
+                if ((value >= 0) && (value <= 50))
+                {
+                    item.Quality = value;
+                }
+            }
         }
 
         public void UpdateQuality()

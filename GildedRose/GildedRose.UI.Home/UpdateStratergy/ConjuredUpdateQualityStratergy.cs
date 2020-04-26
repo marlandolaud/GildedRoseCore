@@ -13,10 +13,6 @@
             {
                 item.Quality -= 4;
             }
-            if (item.Quality < 0)
-            {
-                item.Quality = 0;
-            }
         }
     }
 }

@@ -12,10 +12,7 @@
         public void UpdateQuality(StoreItem item)
         {
             item.SellIn--;
-            if (item.Quality < 50)
-            {
-                item.Quality++;
-            }
+            item.Quality++;
             if (item.SellIn < 10)
             {
                 item.Quality++;
