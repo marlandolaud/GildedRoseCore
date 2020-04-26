@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GildedRose.UI.Home
+namespace GildedRose.UI.Home.Services
 {
     public class ItemQualityService
     {
@@ -8,11 +8,11 @@ namespace GildedRose.UI.Home
         {
             foreach (var item in items)
             {
-                UpdateQuality(item);
+                UpdateItemQuality(item);
             }
         }
 
-        public void UpdateQuality(Item item)
+        public void UpdateItemQuality(Item item)
         {
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
