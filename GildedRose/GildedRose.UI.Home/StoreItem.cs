@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GildedRose.UI.Home.UpdateStratergy;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,6 +9,8 @@ namespace GildedRose.UI.Home
     {
         private readonly Item item;
 
+        private readonly IUpdateQualityStratergy updateQualityStratergy;
+
         public StoreItem()
         {
 
@@ -16,6 +19,11 @@ namespace GildedRose.UI.Home
         public StoreItem(Item item)
         {
             this.item = item;
+
+            if (Name.Equals("Aged Brie"))
+            {
+                updateQualityStratergy = new AgedBrieUpdateQualityStratergy();
+            }
         }
 
         public string Name
@@ -101,10 +109,11 @@ namespace GildedRose.UI.Home
                 }
                 else
                 {
-                    if (this.Quality < 50)
-                    {
-                        this.Quality = this.Quality + 1;
-                    }
+                    updateQualityStratergy.UpdateQuality(this);
+                    //if (this.Quality < 50)
+                    //{
+                    //    this.Quality = this.Quality + 1;
+                    //}
                 }
             }
         }
