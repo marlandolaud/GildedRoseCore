@@ -1,151 +1,144 @@
 ﻿using FluentAssertions;
 using GildedRose.UI.Home;
-using GildedRose.UI.Home.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace GildedRose.Tests.Services
+namespace GildedRose.Tests
 {
-    public class ItemQualityServiceTests
+    public class StoreItemTests
     {
         private const int MaxQuality = 50;
 
         private const int DefaultSellinValue = 10;
 
-        private const int DefaultQualityValue = 20;
-
-        public ItemQualityService qualityiService;
-
-        public ItemQualityServiceTests()
-        {
-            qualityiService = new ItemQualityService();
-        }
+        private const int DefaultQualityValue = 20;      
 
         [Fact]
         public void ReduceNormalItemQualityByOne()
         {
             // Arrange            
-            Item normalItem = GetNormalItem();
-            int expectedQuality = normalItem.Quality -1;
+            var storeItem = new StoreItem(GetNormalItem());
+            int expectedQuality = storeItem.Quality - 1;
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.Quality.Should().Be(expectedQuality);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void ReduceNormalItemSellInByOne()
         {
-            // Arrange
-            var normalItem = GetNormalItem();
-            int expectedSellin = normalItem.SellIn - 1;
+            // Arrange            
+            var storeItem = new StoreItem(GetNormalItem());
+            int expectedSellIn = storeItem.SellIn - 1;
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.SellIn.Should().Be(expectedSellin);
+            storeItem.SellIn.Should().Be(expectedSellIn);       
         }
 
         [Fact]
         public void ReduceNormalItemQualityByTwoWhenSellInLessThanOne()
         {
             // Arrange            
-            Item normalItem = GetNormalItem(sellin: 0);
-            int expectedQuality = normalItem.Quality - 2;
+            var storeItem = new StoreItem(GetNormalItem(sellin: 0));
+            int expectedQuality = storeItem.Quality - 2;
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.Quality.Should().Be(expectedQuality);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void QualityShouldNeverBeNegative()
         {
             // Arrange            
-            Item normalItem = GetNormalItem(quality: 0);
+            var storeItem = new StoreItem(GetNormalItem(quality: 0));
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.Quality.Should().Be(0);
+            storeItem.Quality.Should().Be(0);
         }
 
         [Fact]
         public void AigedBrieQualityShouldIncrease()
         {
             // Arrange            
-            Item agedBrieItem = GetAgedBrie();
-            int expactedValue = agedBrieItem.Quality + 1;
+            var storeItem = new StoreItem(GetAgedBrie());
+            int expectedQuality = storeItem.Quality + 1;
 
             // Act
-            qualityiService.UpdateItemQuality(agedBrieItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            agedBrieItem.Quality.Should().Be(expactedValue);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void ShouldNotIncreseQualityOfAgedBriePast50()
         {
             // Arrange            
-            Item agedBrieItem = GetAgedBrie(quality: MaxQuality);
-            int expactedValue = agedBrieItem.Quality;
+            var storeItem = new StoreItem(GetAgedBrie(quality: MaxQuality));
+            int expectedQuality = storeItem.Quality;
 
             // Act
-            qualityiService.UpdateItemQuality(agedBrieItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            agedBrieItem.Quality.Should().Be(expactedValue);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void ShouldIncreaseQualityOfAgedBrieBy2AfterSellin()
         {
+
             // Arrange            
-            Item agedBrieItem = GetAgedBrie(sellin: 0);
-            int expactedValue = agedBrieItem.Quality + 2;
+            var storeItem = new StoreItem(GetAgedBrie(sellin: 0));
+            int expectedQuality = storeItem.Quality + 2;
 
             // Act
-            qualityiService.UpdateItemQuality(agedBrieItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            agedBrieItem.Quality.Should().Be(expactedValue);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void SulfurasQualityShouldNotChange()
         {
             // Arrange            
-            Item normalItem = GetSulfuras();
-            int expectedQuality = normalItem.Quality;
+            var storeItem = new StoreItem(GetSulfuras());
+            int expectedQuality = storeItem.Quality;
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.Quality.Should().Be(expectedQuality);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
         [Fact]
         public void SulfurasSellInShouldNotChange()
         {
             // Arrange            
-            Item normalItem = GetSulfuras();
-            int expectedSellIn = normalItem.SellIn;
+            var storeItem = new StoreItem(GetSulfuras());
+            int expectedSellIn = storeItem.SellIn;
 
             // Act
-            qualityiService.UpdateItemQuality(normalItem);
+            storeItem.UpdateQuality();
 
             // Assert
-            normalItem.SellIn.Should().Be(expectedSellIn);
+            storeItem.SellIn.Should().Be(expectedSellIn);
         }
 
         [Theory]
@@ -159,20 +152,20 @@ namespace GildedRose.Tests.Services
         [InlineData(-1, DefaultQualityValue, 0)]
         public void BackStagePassesQualityShouldIncreaseUntilTheConcertIsOver(int sellin, int initialQuality, int expectedQuality)
         {
-            // Arrange    
-            Item backstagepass = GetBackstage(sellin: sellin, quality: initialQuality);
+            // Arrange            
+            var storeItem = new StoreItem(GetBackstage(sellin: sellin, quality: initialQuality));
 
             // Act
-            qualityiService.UpdateItemQuality(backstagepass);
+            storeItem.UpdateQuality();
 
             // Assert
-            backstagepass.Quality.Should().Be(expectedQuality);
+            storeItem.Quality.Should().Be(expectedQuality);
         }
 
-        private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
+        private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
             new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
 
-        private static Item GetAgedBrie(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
+        private static Item GetAgedBrie(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) =>
             new Item { Name = "Aged Brie", SellIn = sellin, Quality = quality };
 
         private static Item GetSulfuras() =>
