@@ -45,9 +45,23 @@ namespace GildedRose.Tests.Services
             normalItem.SellIn.Should().Be(expectedSellin);
         }
 
-        private static Item GetNormalItem()
+        [Fact]
+        public void ReduceNormalItemQualityByTwoWhenSellInLessThanOne()
         {
-            return new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 };
+            // Arrange            
+            Item normalItem = GetNormalItem(sellin: 0);
+            int expectedQuality = normalItem.Quality - 2;
+
+            // Act
+            qualityiService.UpdateItemQuality(normalItem);
+
+            // Assert
+            normalItem.Quality.Should().Be(expectedQuality);
+        }
+
+        private static Item GetNormalItem(int sellin = 10, int quality = 20)
+        {
+            return new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
         }
     }
 }
