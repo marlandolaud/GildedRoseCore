@@ -8,11 +8,6 @@ namespace GildedRose.UI.Home
 
         private readonly IUpdateQualityStratergy updateQualityStratergy;
 
-        public StoreItem()
-        {
-
-        }
-
         public StoreItem(Item item)
         {
             this.item = item;
@@ -40,7 +35,7 @@ namespace GildedRose.UI.Home
         public int SellIn
         {
             get { return item.SellIn; }
-            set { item.SellIn = value; }
+            private set { item.SellIn = value; }
         }
 
         public int Quality
@@ -68,6 +63,11 @@ namespace GildedRose.UI.Home
             {
                 Quality--;
             }
+        }
+
+        public void Age()
+        {
+            SellIn--;
         }
 
         public void Expire()

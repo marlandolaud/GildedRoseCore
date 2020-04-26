@@ -11,7 +11,7 @@
         /// <param name="item">the store item</param>
         public void UpdateQuality(StoreItem item)
         {
-            item.SellIn--;
+            item.Age();
             item.IncrementQuality();            
             if (item.SellIn < 10)
             {

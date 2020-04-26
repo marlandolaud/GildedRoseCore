@@ -5,14 +5,16 @@
         /// <summary>
         /// "Aged Brie" actually increases in Quality the older it gets
         /// </summary>
-        /// <param name="storeItem"></param>
-        public void UpdateQuality(StoreItem storeItem)
+        /// <param name="item"></param>
+        public void UpdateQuality(StoreItem item)
         {
-            storeItem.SellIn--;
-            storeItem.IncrementQuality();
-            if (storeItem.SellIn < 0)
+            item.Age();
+
+            item.IncrementQuality();
+
+            if (item.SellIn < 0)
             {
-                storeItem.IncrementQuality();
+                item.IncrementQuality();
             }
         }
     }

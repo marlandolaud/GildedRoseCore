@@ -8,12 +8,11 @@
         /// <param name="item"></param>
         public void UpdateQuality(StoreItem item)
         {
-            item.SellIn--;
+            item.Age();
             item.DecrementQuality();
             if (item.SellIn < 0)
             {
                 item.DecrementQuality();
-
             }
         }
     }
