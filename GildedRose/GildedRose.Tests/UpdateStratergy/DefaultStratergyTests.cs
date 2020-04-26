@@ -7,11 +7,11 @@ namespace GildedRose.Tests.UpdateStratergy
 {
     public class DefaultStratergyTests
     {
-        private IUpdateQualityStratergy defaultUpdateQualityStratergy;
+        private IUpdateQualityStratergy updateQualityStratergy;
 
         public DefaultStratergyTests()
         {
-            defaultUpdateQualityStratergy = new DefaultStratergy();
+            updateQualityStratergy = new DefaultUpdateQualityStratergy();
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedQuality = storeItem.Quality - 1;
 
             // Act
-            defaultUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
@@ -36,7 +36,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedSellIn = storeItem.SellIn - 1;
 
             // Act
-            defaultUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.SellIn.Should().Be(expectedSellIn);
@@ -50,7 +50,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedQuality = storeItem.Quality - 2;
 
             // Act
-            defaultUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
@@ -63,7 +63,7 @@ namespace GildedRose.Tests.UpdateStratergy
             var storeItem = StoreItemHelper.GetNormalItem(quality: 0);
 
             // Act
-            defaultUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(0);

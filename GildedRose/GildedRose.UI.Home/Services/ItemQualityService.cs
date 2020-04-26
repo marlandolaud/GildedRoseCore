@@ -9,6 +9,7 @@ namespace GildedRose.UI.Home.Services
             foreach (var item in items)
             {
                 var storeItem = new StoreItem(item);
+
                 storeItem.UpdateQuality();
             }
         }     

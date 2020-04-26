@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GildedRose.UI.Home.UpdateStratergy
+﻿namespace GildedRose.UI.Home.UpdateStratergy
 {
-    public class DefaultStratergy : IUpdateQualityStratergy
+    public class DefaultUpdateQualityStratergy : IUpdateQualityStratergy
     {
         public void UpdateQuality(StoreItem item)
         {

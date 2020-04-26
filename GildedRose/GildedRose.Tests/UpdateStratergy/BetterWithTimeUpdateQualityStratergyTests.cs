@@ -1,20 +1,17 @@
 ﻿using FluentAssertions;
 using GildedRose.Tests.Helpers;
 using GildedRose.UI.Home.UpdateStratergy;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace GildedRose.Tests.UpdateStratergy
 {
     public class BetterWithTimeUpdateQualityStratergyTests
     {
-        private IUpdateQualityStratergy agedBrieUpdateQualityStratergy;
+        private IUpdateQualityStratergy updateQualityStratergy;
 
         public BetterWithTimeUpdateQualityStratergyTests()
         {
-            agedBrieUpdateQualityStratergy = new BetterWithTimeUpdateQualityStratergy();
+            updateQualityStratergy = new BetterWithTimeUpdateQualityStratergy();
         }
 
         [Fact]
@@ -25,7 +22,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedQuality = storeItem.Quality + 1;
 
             // Act
-            agedBrieUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
@@ -39,7 +36,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedQuality = storeItem.Quality;
 
             // Act
-            agedBrieUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
@@ -54,7 +51,7 @@ namespace GildedRose.Tests.UpdateStratergy
             int expectedQuality = storeItem.Quality + 2;
 
             // Act
-            agedBrieUpdateQualityStratergy.UpdateQuality(storeItem);
+            updateQualityStratergy.UpdateQuality(storeItem);
 
             // Assert
             storeItem.Quality.Should().Be(expectedQuality);
