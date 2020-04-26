@@ -15,6 +15,7 @@ namespace GildedRose.Tests.UpdateStratergy
         }
 
         [Theory]
+        [InlineData(30, GildedRoseTestConstants.MaxQuality, GildedRoseTestConstants.MaxQuality)]
         [InlineData(30, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 1)]
         [InlineData(20, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 1)]
         [InlineData(10, GildedRoseTestConstants.DefaultQualityValue, GildedRoseTestConstants.DefaultQualityValue + 2)]
