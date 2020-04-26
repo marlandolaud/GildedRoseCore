@@ -10,6 +10,9 @@ namespace GildedRose.Tests.Services
 {
     public class ItemQualityServiceTests
     {
+        private const int MaxQuality = 50;
+        private const int DefaultSellinValue = 10;
+        private const int DefaultQualityValue = 20;
         public ItemQualityService qualityiService;
 
         public ItemQualityServiceTests()
@@ -90,7 +93,7 @@ namespace GildedRose.Tests.Services
         public void ShouldNotIncreseQualityOfAgedBriePast50()
         {
             // Arrange            
-            Item agedBrieItem = GetAgedBrie(quality: 50);
+            Item agedBrieItem = GetAgedBrie(quality: MaxQuality);
             int expactedValue = agedBrieItem.Quality;
 
             // Act
@@ -100,10 +103,10 @@ namespace GildedRose.Tests.Services
             agedBrieItem.Quality.Should().Be(expactedValue);
         }
 
-        private static Item GetNormalItem(int sellin = 10, int quality = 20) => 
+        private static Item GetNormalItem(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
             new Item { Name = "+5 Dexterity Vest", SellIn = sellin, Quality = quality };
 
-        private static Item GetAgedBrie(int sellin = 2, int quality = 0) => 
+        private static Item GetAgedBrie(int sellin = DefaultSellinValue, int quality = DefaultQualityValue) => 
             new Item { Name = "Aged Brie", SellIn = sellin, Quality = quality };
     }
 }
