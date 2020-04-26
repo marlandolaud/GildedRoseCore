@@ -8,16 +8,12 @@
         /// <param name="storeItem"></param>
         public void UpdateQuality(StoreItem storeItem)
         {
-            if (storeItem.SellIn > 0)
-            {
-                storeItem.IncrementQuality();
-            }
-            else
-            {
-                storeItem.IncrementQuality();
-                storeItem.IncrementQuality();
-            }
             storeItem.SellIn--;
+            storeItem.IncrementQuality();
+            if (storeItem.SellIn < 0)
+            {
+                storeItem.IncrementQuality();
+            }
         }
     }
 }
